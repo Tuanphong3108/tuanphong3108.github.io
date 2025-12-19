@@ -2,41 +2,330 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>TuanPhong Hub</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phong's Dev Space</title>
+    <!-- Material Symbols Outline - FIX TRIỆT ĐỂ: CHỈ LOAD TÊN FONT, KHÔNG ĐỊNH NGHĨA OPSZ HAY WGT TRONG URL -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <!-- Thêm Google Sans Flex từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap" rel="stylesheet">
     <style>
+        /* Khai báo font Google Sans theo cấu hình của Phong */
         @font-face {
             font-family: 'Google Sans';
             src: url('https://tuanphong3108.github.io/google-sans-do-not-access/GoogleSans-Regular.ttf') format('truetype');
+            font-weight: normal; font-style: normal;
         }
+        @font-face {
+            font-family: 'Google Sans';
+            src: url('https://tuanphong3108.github.io/google-sans-do-not-access/GoogleSans-Bold.ttf') format('truetype');
+            font-weight: bold; font-style: normal;
+        }
+        /* Thêm bản Italic cho Google Sans */
+        @font-face {
+            font-family: 'Google Sans';
+            src: url('https://tuanphong3108.github.io/google-sans-do-not-access/GoogleSans-Italic.ttf') format('truetype');
+            font-weight: normal; 
+            font-style: italic;
+        }
+        /* NEW FONT: Minecraft Font */
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://tuanphong3108.github.io/google-sans-do-not-access/minecraft.tff') format('truetype');
+            font-weight: normal; font-style: normal;
+        }
+
+
         body {
+            /* Dùng Google Sans tĩnh làm font nền cho Body, không cần thiết phải Flex */
             font-family: 'Google Sans', sans-serif;
-            background: #121212; color: white;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0;
+            background-color: #0f0f0f; 
+            color: #ffffff;
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 40px 20px;
+            /* Tạo một lớp nền mờ phía sau để tăng hiệu ứng Glassmorphism */
+            background-image: radial-gradient(circle at top right, #4285f4 0%, transparent 30%), 
+                              radial-gradient(circle at bottom left, #34a853 0%, transparent 30%);
+            background-attachment: fixed;
         }
-        .container { text-align: center; }
-        .link-card {
-            display: flex; align-items: center; gap: 10px;
-            padding: 15px 25px; margin: 10px;
-            border: 1px solid #333; border-radius: 12px;
-            text-decoration: none; color: white; transition: 0.3s;
+
+        h1 { 
+            font-family: 'Minecraft', sans-serif; /* ÁP DỤNG FONT MINECRAFT */
+            font-weight: bold; /* Đã chuyển sang BOLD */
+            font-size: 30px; /* ĐÃ GIẢM KÍCH THƯỚC THEO YÊU CẦU */
+            margin-bottom: 30px; 
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(66, 133, 244, 0.5); /* Shadow nhẹ cho nổi khối */
         }
-        .link-card:hover { background: #333; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0; transition: 0.3s; }
-        .link-card:hover .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px; 
+            width: 100%; 
+            max-width: 1000px;
+            padding-bottom: 50px; /* Thêm padding dưới để footer không bị sát quá */
+        }
+
+        /* CARD STYLE: GLASSMORPHISM HERE */
+        .card {
+            /* Hiệu ứng kính mờ - quan trọng nhất */
+            background: rgba(255, 255, 255, 0.08); /* Nền siêu mờ */
+            backdrop-filter: blur(12px); /* Độ mờ kính */
+            -webkit-backdrop-filter: blur(12px); /* Hỗ trợ WebKit */
+            
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Viền mỏng, sáng */
+            border-radius: 24px; 
+            padding: 20px; 
+            text-decoration: none; 
+            color: white;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Shadow sâu hơn */
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.15); /* Sáng hơn khi hover */
+            transform: scale(1.05); /* Phóng to nhẹ */
+            border-color: #4285f4;
+            box-shadow: 0 16px 40px 0 rgba(66, 133, 244, 0.4); /* Shadow màu xanh khi hover */
+        }
+        
+        /* CONTAINER CHO ICON VÀ BADGE */
+        .icon-wrapper {
+            position: relative;
+            margin-bottom: 12px; /* Khoảng cách giữa icon và tên project */
+        }
+
+        .material-symbols-outlined {
+            /* FIX LỖI ICON KHÔNG HIỆN THỊ VÀ ĐẢM BẢO ƯU TIÊN TUYỆT ĐỐI */
+            font-family: 'Material Symbols Outlined' !important; 
+            font-size: 64px; /* GIỮ NGUYÊN 64PX */
+            /* Vẫn giữ FILL để hiệu ứng hover hoạt động */
+            font-variation-settings: 'FILL' 0; 
+            transition: font-variation-settings 0.3s, color 0.3s;
+        }
+
+        /* Đảm bảo ảnh (nếu dùng) có kích thước tương đương icon */
+        .icon-wrapper img {
+            width: 48px; /* GIỮ NGUYÊN 48PX CHO ICON ẢNH */
+            height: 48px; /* GIỮ NGUYÊN 48PX CHO ICON ẢNH */
+            border-radius: 8px; /* Bo góc nhẹ cho ảnh icon */
+            object-fit: contain; /* ĐÃ SỬA: Dùng 'contain' để ảnh không bị cắt */
+        }
+
+        .card:hover .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1; /* FILL khi hover */
+            color: #4285f4; /* Màu Google Blue */
+        }
+
+        .card span:last-child { 
+            /* CHỈ GIỮ LẠI FONT FLEX ĐỂ BẮT BUỘC KÍCH HOẠT TRỤC ROND */
+            font-family: 'Google Sans Flex', sans-serif; 
+            font-size: 16px; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-top: 8px;
+            /* ĐÃ CẬP NHẬT: Độ tròn 100, độ rộng 125 */
+            font-variation-settings: 'ROND' 100, 'wdth' 125;
+            display: block; 
+        }
+
+        /* CSS MỚI: Container chứa Version và Status */
+        .card-meta {
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            /* Tăng nhẹ khoảng cách để chứa được nhiều tag */
+            gap: 5px; 
+            margin-top: 5px;
+            /* Cho phép tràn xuống hàng nếu quá nhiều tag */
+            flex-wrap: wrap; 
+        }
+
+        /* CSS MỚI: Text Version */
+        .version-text {
+            font-family: 'Google Sans Flex', sans-serif; 
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5); /* Xám nhạt */
+            font-variation-settings: 'ROND' 100, 'wdth' 125, 'wght' 300; 
+            /* Đảm bảo nó không bị co lại khi có nhiều tag */
+            flex-shrink: 0; 
+        }
+
+        /* CSS MỚI: Status Tag - BASE STYLE */
+        .status-tag {
+            font-family: 'Minecraft', sans-serif; /* ÁP DỤNG FONT MINECRAFT CHO TẤT CẢ TAGS */
+            font-size: 7px; /* GIỮ NGUYÊN 7PX */
+            font-weight: bold;
+            background-color: #3c4043; /* Google Grey 700 - màu trung tính */
+            color: #ffffff;
+            padding: 2px 6px; /* GIỮ NGUYÊN PADDING */
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        /* CSS MỚI: Status Tag PWA (GREEN) */
+        .status-tag.pwa {
+            background-color: #34a853; /* Google Green */
+            color: #fff;
+        }
+        
+        /* CSS MỚI: Status Tag Vietnamese (RED) */
+        .status-tag.lang-vietnamese {
+            background-color: #ea4335; /* Google Red */
+            color: #fff;
+        }
+        
+        /* CSS MỚI: Status Tag English (BLUE) */
+        .status-tag.lang-english {
+            background-color: #4285f4; /* Google Blue */
+            color: #fff;
+        }
+        
+        /* CSS MỚI: Status Tag STUPID (RED) */
+        .status-tag.stupid {
+            background-color: #ea4335; /* Google Red - Giữ màu */
+            color: #fff;
+            /* Đã thừa kế font và size từ .status-tag */
+        }
+        
+        /* CSS MỚI: Status Tag ALPHA (YELLOW) */
+        .status-tag.alpha {
+            background-color: #fbbc05; /* Google Yellow - Giữ màu */
+            color: #0f0f0f; /* Chữ đen trên nền vàng - Giữ màu */
+            /* Đã thừa kế font và size từ .status-tag */
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Phong's Space 🚀</h1>
-        <a href="/game" class="link-card">
-            <span class="material-symbols-outlined">sports_esports</span>
-            <span>Vào kho Game</span>
+
+    <h1>TuanPhong's Project Gallery</h1>
+
+    <div class="grid">
+        <!-- Chemistry Game -->
+        <a href="/chemistry-game" class="card">
+            <div class="icon-wrapper">
+                <span class="material-symbols-outlined">science</span>
+            </div>
+            <span>Chemistry Game</span> 
+            <div class="card-meta">
+                <small class="version-text">v2025.5.23</small>
+                <small class="status-tag stupid">STUPID</small> 
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
         </a>
-        <a href="/mouse-game" class="link-card">
+        
+        <!-- The Chosen One's Game -->
+        <a href="/chosen-one-game" class="card">
+            <div class="icon-wrapper">
+                <!-- Icon là ảnh URL -->
+                <img 
+                    src="https://tuanphong3108.github.io/newtab/The_Chosen_One.png" 
+                    alt="The Chosen One's Game Icon" 
+                    onerror="this.onerror=null;this.src='https://placehold.co/48x48/fbbc05/0f0f0f?text=C1'"
+                > 
+            </div>
+            <span>The Chosen One's Game</span> 
+            <div class="card-meta">
+                <small class="version-text">v2025.11.12</small>
+                <small class="status-tag alpha">ALPHA</small> 
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
+        </a>
+
+
+        <!-- Mouse Challenge -->
+        <a href="/mouse-game" class="card">
             <span class="material-symbols-outlined">mouse</span>
             <span>Mouse Challenge</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.11.15</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
         </a>
+
+        <!-- Weather App -->
+        <a href="/weather" class="card">
+            <span class="material-symbols-outlined">cloudy_snowing</span>
+            <span>Weather App</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.11.15</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
+        </a>
+
+        <!-- Math Solver - SONG NGỮ -->
+        <a href="/math-solver" class="card">
+            <span class="material-symbols-outlined">calculate</span>
+            <span>Math Solver</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.10.8</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+                <small class="status-tag lang-english">English</small>
+            </div>
+        </a>
+
+        <!-- Camera App - SONG NGỮ -->
+        <a href="/camera" class="card">
+            <span class="material-symbols-outlined">photo_camera</span>
+            <span>Camera App</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.9.11</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+                <small class="status-tag lang-english">English</small>
+            </div>
+        </a>
+        
+        <!-- Solitare -->
+        <a href="https://tuanphong3108.github.io/solitaire/" class="card">
+            <span class="material-symbols-outlined">style</span>
+            <span>Solitare</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.9.28</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
+        </a>
+        
+        <!-- Video Player -->
+        <a href="https://tuanphong3108.github.io/video-player/" class="card">
+            <span class="material-symbols-outlined">video_library</span>
+            <span>Video Player</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.11.15</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
+        </a>
+        
+        <!-- Black Board -->
+        <a href="https://tuanphong3108.github.io/black-board/" class="card">
+            <span class="material-symbols-outlined">school</span>
+            <span>Black Board</span>
+            <div class="card-meta">
+                <small class="version-text">v2025.11.17</small>
+                <small class="status-tag pwa">PWA</small>
+                <small class="status-tag lang-vietnamese">Vietnamese</small>
+            </div>
+        </a>
+
+        <!-- Thêm các repo khác của ông vào đây nhé! -->
+
     </div>
+    
+    <!-- ĐÃ XÓA FOOTER CŨ -->
+
 </body>
-</html>
+</html>s
