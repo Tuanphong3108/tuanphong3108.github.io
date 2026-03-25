@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Trang chủ -->
+  <url>
+    <loc>https://tuanphong3108.github.io/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- PDF Reader -->
+  <url>
+    <loc>https://tuanphong3108.github.io/pdf-reader/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Music Player -->
+  <url>
+    <loc>https://tuanphong3108.github.io/music-player/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Music Player MD1 (Legacy) -->
+  <url>
+    <loc>https://tuanphong3108.github.io/music-player/index_md1.html</loc>
+    <changefreq>never</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Notepad -->
+  <url>
+    <loc>https://tuanphong3108.github.io/notepad/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Notepad MD1 (Legacy) -->
+  <url>
+    <loc>https://tuanphong3108.github.io/notepad/index_md1.html</loc>
+    <changefreq>never</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Minesweeper -->
+  <url>
+    <loc>https://tuanphong3108.github.io/minesweeper/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Recorder -->
+  <url>
+    <loc>https://tuanphong3108.github.io/recorder/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Math Quiz -->
+  <url>
+    <loc>https://tuanphong3108.github.io/game/math.html</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Chemistry Game -->
+  <url>
+    <loc>https://tuanphong3108.github.io/game/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- The Chosen One -->
+  <url>
+    <loc>https://tuanphong3108.github.io/game/the_chosen_one.html</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Weather App -->
+  <url>
+    <loc>https://tuanphong3108.github.io/weather/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Camera App -->
+  <url>
+    <loc>https://tuanphong3108.github.io/camera/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Mouse Challenge -->
+  <url>
+    <loc>https://tuanphong3108.github.io/mouse-game/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Math Solver -->
+  <url>
+    <loc>https://tuanphong3108.github.io/math-solver/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Solitaire -->
+  <url>
+    <loc>https://tuanphong3108.github.io/solitaire/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Video Player -->
+  <url>
+    <loc>https://tuanphong3108.github.io/video-player/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Black Board -->
+  <url>
+    <loc>https://tuanphong3108.github.io/black-board/</loc>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
