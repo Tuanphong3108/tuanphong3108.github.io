@@ -189,7 +189,7 @@
         .status-tag.file-handler { background: #00796B; color: #B2DFDB; }
     </style>
 
-    <!-- CSS BỔ SUNG CHO WARNING DIALOG (MD3 Expressive) -->
+    <!-- CSS BỔ SUNG CHO WARNING DIALOG (MD3 Expressive - BẢN ĐỘ SIZE) -->
     <style>
         /* Dialog Backdrop Overlay */
         .dialog-overlay {
@@ -220,8 +220,8 @@
             background: var(--md-sys-color-surface);
             border-radius: 28px;
             padding: 24px;
-            width: 90%;
-            max-width: 560px;
+            width: 95%; /* Mở rộng tối đa trên mobile */
+            max-width: 840px; /* Bơm size cho màn to như Dell Latitude */
             box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
             transform: scale(0.85) translateY(20px);
             opacity: 0;
@@ -230,6 +230,7 @@
             flex-direction: column;
             gap: 16px;
             border: 1px solid rgba(255, 255, 255, 0.08);
+            max-height: 90vh; /* Ngăn dialog vượt quá chiều cao màn hình */
         }
 
         .dialog-overlay.show .md3-dialog {
@@ -245,6 +246,7 @@
             color: var(--md-sys-color-on-surface);
             font-size: 1.5rem;
             font-weight: 600;
+            flex-shrink: 0;
         }
 
         .md3-dialog-header .material-symbols-outlined {
@@ -254,12 +256,19 @@
         }
 
         /* Dialog Content / Iframe */
+        .md3-dialog-content {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
         .md3-dialog-content iframe {
             width: 100%;
-            height: 280px;
+            height: 60vh; /* Auto cao theo chiều cao màn hình */
+            min-height: 400px; /* Tối thiểu 400px để không bị bóp nghẹt */
             border: none;
             border-radius: 16px;
             background: #111;
+            display: block;
         }
 
         /* Dialog Actions */
@@ -268,6 +277,7 @@
             justify-content: flex-end;
             gap: 8px;
             margin-top: 8px;
+            flex-shrink: 0;
         }
 
         /* Buttons Styling with MD3 + Ripple Prep */
