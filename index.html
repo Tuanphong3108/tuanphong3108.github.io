@@ -10,14 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <style>
         :root {
-            /* Material 3 Color Palette - Deep Dark Tech */
+            /* Material 3 Color Palette */
             --md-sys-color-primary: #D0BCFF;
             --md-sys-color-on-primary: #381E72;
             --md-sys-color-primary-container: #4F378B;
             --md-sys-color-on-primary-container: #EADDFF;
             --md-sys-color-surface: #141218;
             --md-sys-color-on-surface: #E6E1E5;
-            --md-sys-color-surface-container: #1D1B20;
+            --md-sys-color-surface-container: rgba(29, 27, 32, 0.7);
             --md-sys-color-outline: #938F99;
             --transition-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --transition-smooth: cubic-bezier(0.3, 0, 0, 1);
@@ -45,7 +45,12 @@
             padding: 40px 24px;
             overflow-x: hidden;
             overflow-y: auto; 
-            background: radial-gradient(circle at 50% -20%, #2b233d 0%, var(--md-sys-color-surface) 70%);
+            background-image: linear-gradient(rgba(20, 18, 24, 0.75), rgba(20, 18, 24, 0.75)), 
+                              url('https://scontent.fhan4-5.fna.fbcdn.net/v/t39.30808-6/653702695_915733121452565_7132930861781210816_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=2a1932&_nc_eui2=AeG_EFk9QMvW90O2H6JtkxfICUa2mOCypW0JRraY4LKlbYdxVzoW7LZX0-0oIDE4CAISliFEjtiHU0krrvyJkikH&_nc_ohc=jWWUl7quoyoQ7kNvwFLxFCY&_nc_oc=AdqGpESyVkIefWavy_FhWVu2lWgfcm_6E7SzTZA51hMRfyI4NOaNxSZV7lSWphxkCig_h4RVy4CWB0M8bf2D_T4L&_nc_zt=23&_nc_ht=scontent.fhan4-5.fna&_nc_gid=EuA1tItHaSPHX90xCHujaw&_nc_ss=7a3a8&oh=00_Afzr8QMnFPQHBzdFYuD61D29mjjBMINGsQCaGfxWAZ-AXg&oe=69D000C3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
 
         /* Bento Grid Layout */
@@ -57,18 +62,21 @@
             max-width: 1100px;
             width: 100%;
             margin: auto; 
-            transition: transform 0.8s var(--transition-smooth), filter 0.8s ease, opacity 0.8s ease;
+            transition: all 0.6s var(--transition-smooth);
+            will-change: filter, transform, opacity;
         }
 
         .bento-item {
             background-color: var(--md-sys-color-surface-container);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-radius: 32px;
             padding: 28px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: 
                 box-shadow 0.4s ease, 
                 border-color 0.4s ease, 
@@ -80,10 +88,10 @@
 
         @media (pointer: fine) {
             .bento-item:hover {
-                background-color: #25232a;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(208, 188, 255, 0.2);
+                background-color: rgba(45, 42, 50, 0.8);
+                box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(208, 188, 255, 0.3);
                 border-color: var(--md-sys-color-primary);
-                transform: translateY(-8px) scale(1.03);
+                transform: translateY(-6px) scale(1.02);
                 z-index: 10;
             }
         }
@@ -96,21 +104,20 @@
 
         .bento-item:active { transform: scale(0.96); }
 
-        /* Avatar Section */
+        /* Avatar */
         .avatar-block {
             grid-column: span 1; grid-row: span 1;
             padding: 0; display: flex; align-items: center; justify-content: center;
-            background: none; border: none;
+            background: none; border: none; backdrop-filter: none;
         }
-
         .avatar-img {
             width: 100%; height: 100%; object-fit: cover; border-radius: 32px;
             transition: transform 0.8s var(--transition-smooth);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
         }
-        .avatar-block:hover .avatar-img { transform: scale(1.15) rotate(3deg); }
+        .avatar-block:hover .avatar-img { transform: scale(1.1) rotate(2deg); }
 
-        /* Hero Header */
+        /* Hero */
         .hero { grid-column: span 3; grid-row: span 1; justify-content: center; }
         .hero h1 {
             font-size: 56px; font-weight: 900; margin: 0; letter-spacing: -3px;
@@ -118,50 +125,51 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .hero .subtitle { 
-            font-size: 18px; font-weight: 500; color: var(--md-sys-color-primary); 
-            margin-top: 4px; letter-spacing: 4px; opacity: 0.8;
+            font-size: 16px; font-weight: 700; color: var(--md-sys-color-primary); 
+            margin-top: 4px; letter-spacing: 5px; opacity: 0.8;
         }
 
         /* Bio */
         .bio { grid-column: span 2; grid-row: span 2; }
-        .bio h2 { font-size: 24px; margin: 0 0 16px 0; color: var(--md-sys-color-primary); }
-        .bio p { margin: 0; font-size: 16px; line-height: 1.8; color: var(--md-sys-color-outline); }
+        .bio h2 { font-size: 22px; margin: 0 0 12px 0; color: var(--md-sys-color-primary); font-weight: 900; }
+        .bio p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--md-sys-color-on-surface); opacity: 0.85; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .tag { 
+            background: rgba(208, 188, 255, 0.15); color: var(--md-sys-color-primary);
+            padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;
+        }
 
         /* App Launcher */
         .app-launcher {
             grid-column: span 2; grid-row: span 2;
             background: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
-            justify-content: center; align-items: center; gap: 20px; cursor: pointer;
+            justify-content: center; align-items: center; gap: 16px; cursor: pointer;
             border: none;
         }
-        .app-launcher-icon { font-size: 64px; transition: transform 0.7s var(--transition-bounce); }
-        .app-launcher:hover .app-launcher-icon { transform: scale(1.3) rotate(15deg); }
+        .app-launcher-icon { font-size: 56px; transition: transform 0.6s var(--transition-bounce); }
+        .app-launcher:hover .app-launcher-icon { transform: scale(1.2) rotate(12deg); }
 
-        /* Contact Items */
+        /* Contacts */
         .contact-item { grid-column: span 2; flex-direction: row; align-items: center; gap: 20px; cursor: pointer; }
-        .contact-icon { color: var(--md-sys-color-primary); font-size: 36px; transition: transform 0.6s var(--transition-bounce); }
-        .contact-item:hover .contact-icon { transform: scale(1.4) rotate(-15deg); }
-        
+        .contact-icon { color: var(--md-sys-color-primary); font-size: 32px; transition: transform 0.5s var(--transition-bounce); }
+        .contact-item:hover .contact-icon { transform: scale(1.3) rotate(-10deg); }
         .contact-info { display: flex; flex-direction: column; }
-        .contact-label { font-size: 12px; font-weight: 700; color: var(--md-sys-color-outline); text-transform: uppercase; letter-spacing: 1.5px; }
-        .contact-value { font-weight: 700; font-size: 18px; margin-top: 2px; }
+        .contact-label { font-size: 11px; font-weight: 800; color: var(--md-sys-color-outline); text-transform: uppercase; letter-spacing: 1.2px; }
+        .contact-value { font-weight: 700; font-size: 17px; }
 
         /* GitHub */
         .github-block {
             grid-column: span 4; flex-direction: row; justify-content: center; align-items: center; gap: 16px;
-            background: #1b1f23; cursor: pointer; padding: 40px;
+            background: rgba(1, 4, 9, 0.85); cursor: pointer; padding: 32px;
         }
-        .github-block:hover .contact-icon { transform: scale(1.25) rotate(10deg); }
 
-        /* Animation & Overlay */
-        .material-symbols-outlined { transition: font-variation-settings 0.3s ease; }
-        .bento-item:hover .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
-
+        /* Transition Overlay - Chỉnh thành đặc */
         #transition-overlay {
             position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999;
             display: none; transform-origin: center center;
             top: 0; left: 0;
+            opacity: 1 !important; /* Luôn luôn đặc */
         }
 
         .loading-container {
@@ -169,28 +177,25 @@
             display: none; justify-content: center; align-items: center;
             background: transparent; pointer-events: none;
         }
-        .loading-gif { width: 160px; filter: grayscale(1) brightness(2); }
+        .loading-gif { width: 140px; filter: grayscale(1) brightness(1.5); }
 
         .ripple {
-            position: absolute; background: rgba(255, 255, 255, 0.1);
+            position: absolute; background: rgba(255, 255, 255, 0.15);
             border-radius: 50%; transform: scale(0);
             animation: ripple-anim 0.6s var(--transition-smooth); pointer-events: none;
         }
         @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
 
-        /* Responsive Breakpoints */
+        /* Responsive */
         @media (max-width: 900px) {
             .container { grid-template-columns: repeat(2, 1fr); }
-            .github-block { grid-column: span 2; }
-            .hero { grid-column: span 2; }
+            .github-block, .hero { grid-column: span 2; }
             .avatar-block { display: none; }
         }
-
         @media (max-width: 500px) {
-            body { padding: 20px 16px; }
-            .container { gap: 12px; margin-top: 0; }
-            .hero h1 { font-size: 38px; }
-            .bento-item { padding: 20px; border-radius: 24px; }
+            body { padding: 16px; }
+            .hero h1 { font-size: 42px; }
+            .bento-item { padding: 24px; border-radius: 28px; }
         }
     </style>
 </head>
@@ -210,23 +215,27 @@
         <!-- Hero -->
         <div class="bento-item hero">
             <h1>Phong.</h1>
-            <div class="subtitle">A RANDOM GUY</div>
+            <div class="subtitle">NEW DEVELOPER WITH GOOGLE GEMINI</div>
         </div>
 
         <!-- Bio -->
         <div class="bento-item bio">
-            <h2>Về tôi</h2>
+            <h2>System Config</h2>
             <p>
-                Tôi là một người đam mê công nghệ với tư duy tối ưu hóa mọi trải nghiệm kỹ thuật số. Thích tinh chỉnh và bẻ cong các giới hạn để thiết bị chạy mượt mà nhất.
-                <br><br>
-                Sáng tạo trong Minecraft và giải quyết các bài toán logic là nơi tôi thể hiện phong cách cá nhân – thực dụng nhưng vẫn đầy nghệ thuật.
+                Yêu thích việc tối ưu hóa hiệu năng hệ thống và tinh chỉnh giao diện người dùng. Tập trung vào trải nghiệm mượt mà, logic và thẩm mỹ hiện đại.
             </p>
+            <div class="tech-tags">
+                <span class="tag">Windows 11</span>
+                <span class="tag">Material Design</span>
+                <span class="tag">Minecraft Creative</span>
+                <span class="tag">UI/UX</span>
+            </div>
         </div>
         
         <!-- App Launcher -->
         <div class="bento-item app-launcher" onclick="startTransition(this, event, 'https://tuanphong3108.github.io/apps.html')">
             <span class="material-symbols-outlined app-launcher-icon">grid_view</span>
-            <span style="font-weight: 900; font-size: 20px;">Mở ứng dụng của tôi</span>
+            <span style="font-weight: 900; font-size: 18px;">Mở các ứng dụng của tôi</span>
         </div>
 
         <!-- Zalo -->
@@ -251,7 +260,7 @@
         <div class="bento-item github-block" onclick="startTransition(this, event, 'https://github.com/Tuanphong3108')">
             <span class="material-symbols-outlined contact-icon">code</span>
             <div class="contact-info">
-                <span class="contact-label">GitHub</span>
+                <span class="contact-label">GitHub Source</span>
                 <span class="contact-value">Tuanphong3108</span>
             </div>
         </div>
@@ -279,13 +288,25 @@
             const overlay = document.getElementById('transition-overlay');
             const container = document.getElementById('main-container');
             const loader = document.getElementById('loading-container');
-            const bgColor = window.getComputedStyle(element).backgroundColor;
+            
+            // Lấy màu nền thật sự của element (solid color)
+            let bgColor = window.getComputedStyle(element).backgroundColor;
+            // Nếu là màu rgba có độ trong suốt, ta biến nó thành màu đặc (opacity 1)
+            if (bgColor.startsWith('rgba')) {
+                bgColor = bgColor.replace(/[^,]+(?=\))/, ' 1');
+            }
 
+            // Bước 1: Blur toàn bộ nội dung cũ
+            container.style.filter = 'blur(20px) brightness(0.2)';
+            container.style.transform = 'scale(0.9)';
+            container.style.opacity = '0'; // Làm mờ dần hẳn luôn
+            
             element.classList.add('is-active-hidden');
 
             const viewportCenterX = window.innerWidth / 2;
             const viewportCenterY = window.innerHeight / 2;
 
+            // Setup overlay đặc
             overlay.style.display = 'block';
             overlay.style.backgroundColor = bgColor;
             overlay.style.width = rect.width + 'px';
@@ -299,35 +320,34 @@
             overlay.style.opacity = '1';
 
             requestAnimationFrame(() => {
-                overlay.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                overlay.style.width = '80px';
-                overlay.style.height = '80px';
+                // Di chuyển vào tâm
+                overlay.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                overlay.style.width = '120px';
+                overlay.style.height = '120px';
                 overlay.style.borderRadius = '50%';
-                overlay.style.left = (viewportCenterX - 40) + 'px';
-                overlay.style.top = (viewportCenterY - 40) + 'px';
-                
-                container.style.filter = 'blur(10px) brightness(0.4)';
-                container.style.transform = 'scale(0.96)';
-                container.style.opacity = '0.5';
+                overlay.style.left = (viewportCenterX - 60) + 'px';
+                overlay.style.top = (viewportCenterY - 60) + 'px';
             });
 
             setTimeout(() => {
-                overlay.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0, 1)';
-                const scale = (Math.max(window.innerWidth, window.innerHeight) / 35);
+                // Phóng to che phủ hoàn toàn (Đặc 100%)
+                overlay.style.transition = 'transform 0.7s cubic-bezier(0.3, 0, 0, 1)';
+                const scale = (Math.max(window.innerWidth, window.innerHeight) / 25);
                 overlay.style.transform = `scale(${scale})`;
                 
                 setTimeout(() => {
                     if (url !== '#') loader.style.display = 'flex';
-                }, 300);
-            }, 600);
+                }, 400);
+            }, 550);
 
             setTimeout(() => {
                 if (url !== '#') {
                     window.location.href = url;
                 } else {
+                    // Logic fallback nếu không có URL (để test)
                     window.isTransitioning = false;
                     element.classList.remove('is-active-hidden');
-                    overlay.style.transition = 'opacity 0.4s ease';
+                    overlay.style.transition = 'opacity 0.5s ease';
                     overlay.style.opacity = '0';
                     container.style.filter = 'none';
                     container.style.opacity = '1';
@@ -335,7 +355,7 @@
                     setTimeout(() => {
                         overlay.style.display = 'none';
                         loader.style.display = 'none';
-                    }, 400);
+                    }, 500);
                 }
             }, 1800);
         }
