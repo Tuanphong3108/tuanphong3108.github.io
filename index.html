@@ -129,25 +129,58 @@
             margin-top: 4px; letter-spacing: 5px; opacity: 0.8;
         }
 
-        /* Bio */
-        .bio { grid-column: span 2; grid-row: span 2; }
-        .bio h2 { font-size: 22px; margin: 0 0 12px 0; color: var(--md-sys-color-primary); font-weight: 900; }
-        .bio p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--md-sys-color-on-surface); opacity: 0.85; }
-        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-        .tag { 
-            background: rgba(208, 188, 255, 0.15); color: var(--md-sys-color-primary);
-            padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;
+        /* Scratch Block - New */
+        .scratch-block {
+            grid-column: span 2; grid-row: span 3; /* Tăng độ cao cho Scratch */
+            padding: 0;
+            background: #000;
+        }
+        .scratch-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        .scratch-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--md-sys-color-surface-container);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            text-align: center;
+            padding: 20px;
+        }
+        .scratch-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .scratch-loading-gif {
+            width: 120px;
+            filter: grayscale(1) brightness(1.5);
+            margin-bottom: 16px;
+        }
+        .scratch-status {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* App Launcher */
         .app-launcher {
-            grid-column: span 2; grid-row: span 2;
+            grid-column: span 2; grid-row: span 1;
             background: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
             justify-content: center; align-items: center; gap: 16px; cursor: pointer;
             border: none;
         }
-        .app-launcher-icon { font-size: 56px; transition: transform 0.6s var(--transition-bounce); }
+        .app-launcher-icon { font-size: 40px; transition: transform 0.6s var(--transition-bounce); }
         .app-launcher:hover .app-launcher-icon { transform: scale(1.2) rotate(12deg); }
 
         /* Contacts */
@@ -164,12 +197,12 @@
             background: rgba(1, 4, 9, 0.85); cursor: pointer; padding: 32px;
         }
 
-        /* Transition Overlay - Chỉnh thành đặc */
+        /* Transition Overlay */
         #transition-overlay {
             position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999;
             display: none; transform-origin: center center;
             top: 0; left: 0;
-            opacity: 1 !important; /* Luôn luôn đặc */
+            opacity: 1 !important;
         }
 
         .loading-container {
@@ -189,13 +222,14 @@
         /* Responsive */
         @media (max-width: 900px) {
             .container { grid-template-columns: repeat(2, 1fr); }
-            .github-block, .hero { grid-column: span 2; }
+            .github-block, .hero, .scratch-block { grid-column: span 2; }
             .avatar-block { display: none; }
         }
         @media (max-width: 500px) {
             body { padding: 16px; }
             .hero h1 { font-size: 42px; }
             .bento-item { padding: 24px; border-radius: 28px; }
+            .scratch-block { height: 300px; }
         }
     </style>
 </head>
@@ -218,24 +252,19 @@
             <div class="subtitle">NEW DEVELOPER WITH GOOGLE GEMINI</div>
         </div>
 
-        <!-- Bio -->
-        <div class="bento-item bio">
-            <h2>Về tôi</h2>
-            <p>
-                Yêu thích việc tối ưu hóa hiệu năng hệ thống và tinh chỉnh giao diện người dùng. Tập trung vào trải nghiệm mượt mà, logic và thẩm mỹ hiện đại.
-            </p>
-            <div class="tech-tags">
-                <span class="tag">Web apps</span>
-                <span class="tag">Material Design</span>
-                <span class="tag">Minecraft Creative</span>
-                <span class="tag">UI/UX</span>
+        <!-- Scratch Iframe Replace Bio -->
+        <div class="bento-item scratch-block">
+            <div id="scratch-overlay" class="scratch-overlay">
+                <img src="https://tuanphong3108.github.io/md3-loading/Loading_Indicator.gif" class="scratch-loading-gif" alt="Loading">
+                <div class="scratch-status">Connecting to Scratch, please wait a moment...</div>
             </div>
+            <iframe id="scratch-frame" src="https://scratch.mit.edu/projects/727802570/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen class="scratch-iframe"></iframe>
         </div>
         
         <!-- App Launcher -->
         <div class="bento-item app-launcher" onclick="startTransition(this, event, 'https://tuanphong3108.github.io/apps.html')">
             <span class="material-symbols-outlined app-launcher-icon">grid_view</span>
-            <span style="font-weight: 900; font-size: 18px;">Mở các ứng dụng của tôi</span>
+            <span style="font-weight: 900; font-size: 16px;">MỞ ỨNG DỤNG</span>
         </div>
 
         <!-- Zalo -->
@@ -267,6 +296,17 @@
     </div>
 
     <script>
+        // Scratch Loader Logic
+        const scratchFrame = document.getElementById('scratch-frame');
+        const scratchOverlay = document.getElementById('scratch-overlay');
+
+        scratchFrame.onload = function() {
+            // Đợi thêm một chút để Iframe render ổn định
+            setTimeout(() => {
+                scratchOverlay.classList.add('fade-out');
+            }, 1000);
+        };
+
         function createRipple(element, e) {
             const rect = element.getBoundingClientRect();
             const circle = document.createElement("span");
@@ -289,24 +329,20 @@
             const container = document.getElementById('main-container');
             const loader = document.getElementById('loading-container');
             
-            // Lấy màu nền thật sự của element (solid color)
             let bgColor = window.getComputedStyle(element).backgroundColor;
-            // Nếu là màu rgba có độ trong suốt, ta biến nó thành màu đặc (opacity 1)
             if (bgColor.startsWith('rgba')) {
                 bgColor = bgColor.replace(/[^,]+(?=\))/, ' 1');
             }
 
-            // Bước 1: Blur toàn bộ nội dung cũ
             container.style.filter = 'blur(20px) brightness(0.2)';
             container.style.transform = 'scale(0.9)';
-            container.style.opacity = '0'; // Làm mờ dần hẳn luôn
+            container.style.opacity = '0';
             
             element.classList.add('is-active-hidden');
 
             const viewportCenterX = window.innerWidth / 2;
             const viewportCenterY = window.innerHeight / 2;
 
-            // Setup overlay đặc
             overlay.style.display = 'block';
             overlay.style.backgroundColor = bgColor;
             overlay.style.width = rect.width + 'px';
@@ -320,7 +356,6 @@
             overlay.style.opacity = '1';
 
             requestAnimationFrame(() => {
-                // Di chuyển vào tâm
                 overlay.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 overlay.style.width = '120px';
                 overlay.style.height = '120px';
@@ -330,7 +365,6 @@
             });
 
             setTimeout(() => {
-                // Phóng to che phủ hoàn toàn (Đặc 100%)
                 overlay.style.transition = 'transform 0.7s cubic-bezier(0.3, 0, 0, 1)';
                 const scale = (Math.max(window.innerWidth, window.innerHeight) / 25);
                 overlay.style.transform = `scale(${scale})`;
@@ -344,7 +378,6 @@
                 if (url !== '#') {
                     window.location.href = url;
                 } else {
-                    // Logic fallback nếu không có URL (để test)
                     window.isTransitioning = false;
                     element.classList.remove('is-active-hidden');
                     overlay.style.transition = 'opacity 0.5s ease';
