@@ -237,7 +237,7 @@
             <h3>Scratch cannot load?</h3>
             <p>Nếu như Scratch không thể tải hoặc bị chết iframe thì hãy mở trang qua nút "Open with Scratch" ở dưới hộp thoại này.</p>
             <div class="dialog-actions">
-                <a href="https://scratch.mit.edu/projects/727802570/" target="_blank" class="md3-btn" id="open-scratch-btn-dialog" onclick="handleOpenScratch(this, event)">Open with Scratch</a>
+                <a href="https://scratch.mit.edu/projects/727802570/" target="_blank" class="md3-btn" onclick="handleOpenScratch(this, event)">Open with Scratch</a>
                 <button class="md3-btn secondary" onclick="toggleDialog()">Đóng</button>
             </div>
         </div>
@@ -318,7 +318,7 @@
 
         scratchFrame.onload = function() {
             setTimeout(() => {
-                scratchOverlay.classList.add('fade-out');
+                if(scratchOverlay) scratchOverlay.classList.add('fade-out');
             }, 1000);
         };
 
@@ -347,15 +347,14 @@
 
         // Handle Special Open with Animation
         async function handleOpenScratch(element, e) {
+            // FIX: Chặn hành vi mặc định của thẻ link để không mở 2 lần
+            e.preventDefault(); 
             const url = element.getAttribute('href');
             
-            // Nếu nhấn từ dialog thì đóng dialog
             if (dialog.classList.contains('show')) toggleDialog();
 
-            // Kích hoạt transition animation
             await startTransition(element, e, url, true);
             
-            // Sau khi animation bắt đầu, thực hiện "trừ khử" iframe ở background
             setTimeout(killScratchIframe, 500);
         }
 
