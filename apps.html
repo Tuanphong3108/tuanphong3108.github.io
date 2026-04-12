@@ -71,6 +71,19 @@
             z-index: 1;
         }
 
+        /* Embed Header (Mặc định ẩn) */
+        #embedHeader {
+            display: none;
+            font-family: 'Google Sans Flex', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--md-sys-color-outline);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -188,7 +201,6 @@
         .status-tag.file-handler { background: #00796B; color: #B2DFDB; }
     </style>
 
-    <!-- CSS BỔ SUNG CHO WARNING DIALOG (MD3 Expressive) -->
     <style>
         .dialog-overlay {
             position: fixed;
@@ -339,7 +351,8 @@
 
     <canvas id="bgCanvas"></canvas>
 
-    <h1>PHONG'S APPS</h1>
+    <div id="embedHeader">Phong's Apps in an iframe</div>
+    <h1 id="mainTitle">PHONG'S APPS</h1>
 
     <div class="grid" id="appGrid">
         <!-- PDF Reader -->
@@ -698,12 +711,18 @@
             
             // --- LOGIC KIỂM TRA EMBED MODE ---
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('is_embed') === 'true') {
+            const isEmbed = urlParams.get('is_embed') === 'true';
+
+            if (isEmbed) {
+                // Ẩn tiêu đề cũ, hiện header mới
+                document.getElementById('mainTitle').style.display = 'none';
+                document.getElementById('embedHeader').style.display = 'block';
+
                 // Nếu là embed, gán target="_blank" cho tất cả thẻ a
                 document.querySelectorAll('a').forEach(link => {
                     link.setAttribute('target', '_blank');
                 });
-                console.log("Embed mode detected: All links will open in new tab.");
+                console.log("Embed mode detected: UI adjusted and links will open in new tab.");
             }
 
             // DIALOG WARNING
