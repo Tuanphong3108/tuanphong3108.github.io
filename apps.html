@@ -337,11 +337,30 @@
 </head>
 <body>
 
+    <!-- Nút mở trong tab mới (Chỉ hiện khi is_embed=true và is_embed_in_newtab!=true) -->
+    <button class="md3-btn md3-btn-filled" id="btnOpenNewTab" style="position: fixed; top: 20px; right: 20px; z-index: 100; display: none; gap: 8px;">
+        <span class="material-symbols-outlined" style="font-size: 20px;">open_in_new</span>
+        Mở trong tab mới
+    </button>
+
     <canvas id="bgCanvas"></canvas>
 
     <h1>PHONG'S APPS</h1>
 
     <div class="grid" id="appGrid">
+        <!-- Newtab -->
+        <a href="/newtab/" class="card" id="app-newtab">
+            <div class="icon-wrapper">
+                <span class="material-symbols-outlined">tab</span>
+            </div>
+            <div class="project-name">Newtab</div>
+            <div class="card-meta">
+                <div class="version-text">v1.0.0</div>
+                <span class="status-tag pwa">PWA</span>
+                <span class="status-tag lang-vietnamese">VN</span>
+            </div>
+        </a>
+
         <!-- PDF Reader -->
         <a href="/pdf-reader" class="card">
             <div class="icon-wrapper">
@@ -480,7 +499,7 @@
         </a>
 
         <!-- About -->
-        <a href="https://tuanphong3108.github.io/" class="card">
+        <a href="https://tuanphong3108.github.io/" class="card" id="app-about">
             <div class="icon-wrapper">
                 <span class="material-symbols-outlined">user_attributes</span>
             </div>
@@ -698,12 +717,39 @@
             
             // --- LOGIC KIỂM TRA EMBED MODE ---
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('is_embed') === 'true') {
-                // Nếu là embed, gán target="_blank" cho tất cả thẻ a
+            const isEmbed = urlParams.get('is_embed') === 'true';
+            const isEmbedInNewTab = urlParams.get('is_embed_in_newtab') === 'true';
+
+            // Ưu tiên kiểm tra is_embed_in_newtab trước
+            if (isEmbedInNewTab) {
+                // Ẩn app Newtab và Về tôi
+                const appNewtab = document.getElementById('app-newtab');
+                const appAbout = document.getElementById('app-about');
+                if(appNewtab) appNewtab.style.display = 'none';
+                if(appAbout) appAbout.style.display = 'none';
+
+                // Áp dụng thuộc tính is_embed (mở link ở tab mới)
                 document.querySelectorAll('a').forEach(link => {
                     link.setAttribute('target', '_blank');
                 });
-                console.log("Embed mode detected: All links will open in new tab.");
+                console.log("Embed in Newtab mode detected: App 'Newtab' and 'Về tôi' are hidden. Links open in new tab.");
+            } 
+            // Nếu chỉ có is_embed bình thường
+            else if (isEmbed) {
+                // Áp dụng mở link tab mới
+                document.querySelectorAll('a').forEach(link => {
+                    link.setAttribute('target', '_blank');
+                });
+                
+                // Hiện nút "Mở trong tab mới" và set sự kiện click
+                const btnOpenNewTab = document.getElementById('btnOpenNewTab');
+                if(btnOpenNewTab) {
+                    btnOpenNewTab.style.display = 'inline-flex';
+                    btnOpenNewTab.addEventListener('click', () => {
+                        window.open('https://tuanphong3108.github.io/apps.html', '_blank');
+                    });
+                }
+                console.log("Normal Embed mode detected: Show 'Mở trong tab mới' button. Links open in new tab.");
             }
 
             // DIALOG WARNING
