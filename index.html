@@ -9,18 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18121798370"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-18121798370');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18121798370"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18121798370');
+    </script>
 
     <style>
         :root {
-            /* Material 3 Color Palette */
             --md-sys-color-primary: #D0BCFF;
             --md-sys-color-on-primary: #381E72;
             --md-sys-color-primary-container: #4F378B;
@@ -64,7 +62,6 @@
             background-repeat: no-repeat;
         }
 
-        /* Bento Grid Layout */
         .container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -88,11 +85,7 @@
             display: flex;
             flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: 
-                box-shadow 0.4s ease, 
-                border-color 0.4s ease, 
-                transform 0.4s var(--transition-bounce), 
-                background-color 0.4s ease;
+            transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s var(--transition-bounce), background-color 0.4s ease;
             text-decoration: none;
             color: inherit;
         }
@@ -107,107 +100,44 @@
             }
         }
 
-        .bento-item.is-active-hidden {
-            visibility: hidden;
-            opacity: 0;
-            pointer-events: none;
-        }
-
+        .bento-item.is-active-hidden { visibility: hidden; opacity: 0; pointer-events: none; }
         .bento-item:active { transform: scale(0.96); }
 
-        /* Avatar */
-        .avatar-block {
-            grid-column: span 1; grid-row: span 1;
-            padding: 0; display: flex; align-items: center; justify-content: center;
-            background: none; border: none; backdrop-filter: none;
-        }
-        .avatar-img {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 32px;
-            transition: transform 0.8s var(--transition-smooth);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
-        }
+        .avatar-block { grid-column: span 1; grid-row: span 1; padding: 0; display: flex; align-items: center; justify-content: center; background: none; border: none; backdrop-filter: none; }
+        .avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; transition: transform 0.8s var(--transition-smooth); box-shadow: 0 12px 32px rgba(0,0,0,0.6); }
         .avatar-block:hover .avatar-img { transform: scale(1.1) rotate(2deg); }
 
-        /* Hero */
         .hero { grid-column: span 3; grid-row: span 1; justify-content: center; }
-        .hero h1 {
-            font-size: 56px; font-weight: 900; margin: 0; letter-spacing: -3px;
-            background: linear-gradient(135deg, #FFFFFF 30%, var(--md-sys-color-primary) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero .subtitle { 
-            font-size: 16px; font-weight: 700; color: var(--md-sys-color-primary); 
-            margin-top: 4px; letter-spacing: 5px; opacity: 0.8;
-        }
+        .hero h1 { font-size: 56px; font-weight: 900; margin: 0; letter-spacing: -3px; background: linear-gradient(135deg, #FFFFFF 30%, var(--md-sys-color-primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero .subtitle { font-size: 16px; font-weight: 700; color: var(--md-sys-color-primary); margin-top: 4px; letter-spacing: 5px; opacity: 0.8; }
 
-        /* Scratch Block */
-        .scratch-block {
-            grid-column: span 2; grid-row: span 3;
-            padding: 0;
-            background: #000;
-            position: relative;
-        }
-        .scratch-iframe {
-            width: 100%; height: 100%; border: none; display: block;
-        }
-        .scratch-overlay {
-            position: absolute; inset: 0; background: var(--md-sys-color-surface-container);
-            backdrop-filter: blur(20px); display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 5;
-            transition: opacity 0.5s ease, visibility 0.5s ease; text-align: center; padding: 20px;
-        }
+        .scratch-block { grid-column: span 2; grid-row: span 3; padding: 0; background: #000; position: relative; }
+        .scratch-iframe { width: 100%; height: 100%; border: none; display: block; }
+        .scratch-overlay { position: absolute; inset: 0; background: var(--md-sys-color-surface-container); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5; transition: opacity 0.5s ease, visibility 0.5s ease; text-align: center; padding: 20px; }
         .scratch-overlay.fade-out { opacity: 0; visibility: hidden; }
         .scratch-loading-gif { width: 120px; filter: grayscale(1) brightness(1.5); margin-bottom: 16px; }
         .scratch-status { font-size: 14px; font-weight: 700; color: var(--md-sys-color-primary); letter-spacing: 1px; text-transform: uppercase; }
 
-        /* Scratch Fallback View */
-        .scratch-fallback {
-            position: absolute; inset: 0; background: #1D1B20;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            padding: 32px; text-align: center; z-index: 20;
-        }
+        .scratch-fallback { position: absolute; inset: 0; background: #1D1B20; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; z-index: 20; }
         .scratch-fallback.active { display: flex; }
         .scratch-fallback-title { font-size: 18px; font-weight: 900; margin-bottom: 12px; color: var(--md-sys-color-error); }
         .scratch-fallback-text { font-size: 14px; opacity: 0.7; margin-bottom: 24px; line-height: 1.5; }
 
-        /* Not Working Button */
-        .not-working-btn {
-            position: absolute; top: 12px; left: 12px; z-index: 10;
-            background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-            padding: 6px 12px; font-size: 11px; font-weight: 700; color: #fff;
-            cursor: pointer; opacity: 0.6; transition: all 0.3s ease;
-        }
+        .not-working-btn { position: absolute; top: 12px; left: 12px; z-index: 10; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 6px 12px; font-size: 11px; font-weight: 700; color: #fff; cursor: pointer; opacity: 0.6; transition: all 0.3s ease; }
         .not-working-btn:hover { opacity: 1; background: rgba(255,255,255,0.2); }
 
-        /* Dialog Styles */
-        .dialog-backdrop {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px); z-index: 1000; display: none;
-            align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
-        }
-        .dialog {
-            background: #1D1B20; border-radius: 28px; padding: 24px;
-            max-width: 320px; width: 90%; transform: scale(0.9); transition: transform 0.3s var(--transition-bounce);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        .dialog-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .dialog { background: #1D1B20; border-radius: 28px; padding: 24px; max-width: 320px; width: 90%; transform: scale(0.9); transition: transform 0.3s var(--transition-bounce); border: 1px solid rgba(255,255,255,0.1); }
         .dialog-backdrop.show { display: flex; opacity: 1; }
         .dialog-backdrop.show .dialog { transform: scale(1); }
         .dialog h3 { margin: 0 0 16px 0; color: var(--md-sys-color-primary); font-size: 20px; font-weight: 900; }
         .dialog p { margin: 0 0 24px 0; font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface); opacity: 0.8; }
         .dialog-actions { display: flex; flex-direction: column; gap: 8px; }
         
-        /* Generic MD3 Button Style */
-        .md3-btn {
-            background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container);
-            border: none; padding: 14px; border-radius: 16px; font-weight: 900; font-size: 14px;
-            cursor: pointer; transition: all 0.3s ease; text-align: center; text-decoration: none;
-            display: inline-block;
-        }
+        .md3-btn { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); border: none; padding: 14px; border-radius: 16px; font-weight: 900; font-size: 14px; cursor: pointer; transition: all 0.3s ease; text-align: center; text-decoration: none; display: inline-block; }
         .md3-btn:active { transform: scale(0.95); }
         .md3-btn.secondary { background: transparent; color: var(--md-sys-color-primary); }
 
-        /* App Launcher & Others */
         .app-launcher { grid-column: span 2; grid-row: span 1; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); justify-content: center; align-items: center; gap: 16px; cursor: pointer; border: none; }
         .app-launcher-icon { font-size: 40px; transition: transform 0.6s var(--transition-bounce); }
         .app-launcher:hover .app-launcher-icon { transform: scale(1.2) rotate(12deg); }
@@ -221,15 +151,12 @@
 
         .github-block { grid-column: span 4; flex-direction: row; justify-content: center; align-items: center; gap: 16px; background: rgba(1, 4, 9, 0.85); cursor: pointer; padding: 32px; }
 
-        /* Transition Overlay */
         #transition-overlay { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; display: none; transform-origin: center center; top: 0; left: 0; opacity: 1 !important; }
         .loading-container { position: fixed; inset: 0; z-index: 10000; display: none; justify-content: center; align-items: center; background: transparent; pointer-events: none; }
         .loading-gif { width: 140px; filter: grayscale(1) brightness(1.5); }
-
         .ripple { position: absolute; background: rgba(255, 255, 255, 0.15); border-radius: 50%; transform: scale(0); animation: ripple-anim 0.6s var(--transition-smooth); pointer-events: none; }
         @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
 
-        /* Responsive */
         @media (max-width: 900px) { .container { grid-template-columns: repeat(2, 1fr); } .github-block, .hero, .scratch-block { grid-column: span 2; } .avatar-block { display: none; } }
         @media (max-width: 500px) { body { padding: 16px; } .hero h1 { font-size: 42px; } .bento-item { padding: 24px; border-radius: 28px; } .scratch-block { height: 380px; } }
     </style>
@@ -241,7 +168,6 @@
         <img src="https://tuanphong3108.github.io/md3-loading/Loading_Indicator.gif" class="loading-gif" alt="Loading">
     </div>
 
-    <!-- Scratch Dialog -->
     <div id="scratch-dialog" class="dialog-backdrop" onclick="closeDialog(event)">
         <div class="dialog" onclick="event.stopPropagation()">
             <h3>Scratch cannot load?</h3>
@@ -281,7 +207,7 @@
                 <a href="https://scratch.mit.edu/projects/727802570/" target="_blank" class="md3-btn" style="width: 100%;" onclick="handleOpenScratch(this, event)">Open with Scratch</a>
             </div>
 
-            <iframe id="scratch-frame" src="https://scratch.mit.edu/projects/727802570/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen class="scratch-iframe"></iframe>
+            <iframe id="scratch-frame" src="https://turbowarp.org/727802570/embed?settings-button=1&username=tuanphong3108&addons=clones%2Cfps%2Cfullscreen%2Cpause%2Cvol-slider&fullscreen-background=%23ffffff" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen class="scratch-iframe"></iframe>
         </div>
         
         <!-- App Launcher -->
@@ -308,6 +234,15 @@
             </div>
         </div>
 
+        <!-- Scratch Social (UPDATED) -->
+        <div class="bento-item contact-item" onclick="startTransition(this, event, 'https://scratch.mit.edu/users/tuanphong3108/')">
+            <span class="material-symbols-outlined contact-icon">extension</span>
+            <div class="contact-info">
+                <span class="contact-label">Scratch Profile</span>
+                <span class="contact-value">tuanphong3108</span>
+            </div>
+        </div>
+
         <!-- GitHub -->
         <div class="bento-item github-block" onclick="startTransition(this, event, 'https://github.com/Tuanphong3108')">
             <span class="material-symbols-outlined contact-icon">code</span>
@@ -319,7 +254,6 @@
     </div>
 
     <script>
-        // DOM Elements
         const scratchFrame = document.getElementById('scratch-frame');
         const scratchOverlay = document.getElementById('scratch-overlay');
         const scratchFallback = document.getElementById('scratch-fallback');
@@ -332,7 +266,6 @@
             }, 1000);
         };
 
-        // Dialog Toggle
         function toggleDialog() {
             if (dialog.classList.contains('show')) {
                 dialog.classList.remove('show');
@@ -347,7 +280,6 @@
             if (e.target === dialog) toggleDialog();
         }
 
-        // Kill Iframe and replace with Fallback
         function killScratchIframe() {
             if (scratchFrame) scratchFrame.remove();
             if (scratchOverlay) scratchOverlay.remove();
@@ -355,16 +287,11 @@
             scratchFallback.classList.add('active');
         }
 
-        // Handle Special Open with Animation
         async function handleOpenScratch(element, e) {
-            // FIX: Chặn hành vi mặc định của thẻ link để không mở 2 lần
             e.preventDefault(); 
             const url = element.getAttribute('href');
-            
             if (dialog.classList.contains('show')) toggleDialog();
-
             await startTransition(element, e, url, true);
-            
             setTimeout(killScratchIframe, 500);
         }
 
