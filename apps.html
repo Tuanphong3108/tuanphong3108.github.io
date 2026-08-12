@@ -10,6 +10,9 @@
     
     <!-- Google Sans Flex -->
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Web Components -->
+    <script type="module" src="https://esm.run/@material/web/all.js"></script>
     
     <style>
         /* Minecraft Font */
@@ -334,8 +337,119 @@
             }
         }
     </style>
+
+    <!-- CSS CHO EASTER EGG: SPAM PROGRESS BAR + DIALOG NHẬP MẬT KHẨU -->
+    <style>
+        .spam-progress-wrapper {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-16px);
+            width: min(300px, 88vw);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .spam-progress-wrapper.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .spam-keys {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .spam-key {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Minecraft', sans-serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: var(--md-sys-color-on-surface);
+            background: var(--md-sys-color-surface-variant);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+            transition: transform 0.12s ease, opacity 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .spam-key.pressed {
+            transform: scale(0.72);
+            opacity: 0.4;
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: none;
+        }
+
+        md-linear-progress#spamProgressBar {
+            width: 100%;
+            height: 6px;
+            --md-linear-progress-active-indicator-color: var(--md-sys-color-primary);
+            --md-linear-progress-active-indicator-height: 6px;
+            --md-linear-progress-track-color: rgba(208, 188, 255, 0.15);
+            --md-linear-progress-track-height: 6px;
+        }
+
+        #mcaddonDialog {
+            --md-dialog-container-color: var(--md-sys-color-surface);
+            --md-dialog-headline-color: var(--md-sys-color-on-surface);
+            --md-dialog-supporting-text-color: var(--md-sys-color-on-surface);
+            --md-sys-shape-corner-extra-large: 28px;
+        }
+
+        #mcaddonDialog p {
+            margin: 0 0 16px 0;
+            font-family: 'Google Sans Flex', sans-serif;
+            font-size: 0.9rem;
+            color: var(--md-sys-color-on-surface);
+            opacity: 0.85;
+        }
+
+        #mcaddonPasswordField {
+            width: 100%;
+            --md-outlined-field-focus-outline-color: var(--md-sys-color-primary);
+            --md-outlined-field-focus-label-text-color: var(--md-sys-color-primary);
+        }
+
+        #mcaddonPasswordError {
+            color: #FFB4AB;
+            font-size: 0.8rem;
+            margin-top: 10px !important;
+            margin-bottom: 0 !important;
+            display: none;
+        }
+
+        #mcaddonPasswordError.shake {
+            animation: shake-anim 0.4s ease;
+        }
+
+        @keyframes shake-anim {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- EASTER EGG: SPAM PROGRESS BAR (khi spam lần lượt A -> D -> A -> D...) -->
+    <div class="spam-progress-wrapper" id="spamProgressWrapper">
+        <div class="spam-keys">
+            <span class="spam-key" id="spamKeyA">A</span>
+            <span class="spam-key" id="spamKeyD">D</span>
+        </div>
+        <md-linear-progress id="spamProgressBar" value="0"></md-linear-progress>
+    </div>
 
     <!-- Nút mở trong tab mới (Chỉ hiện khi is_embed=true và is_embed_in_newtab!=true) -->
     <button class="md3-btn md3-btn-filled" id="btnOpenNewTab" style="position: fixed; top: 20px; right: 20px; z-index: 100; display: none; gap: 8px;">
@@ -649,6 +763,25 @@
     </div>
 
 
+    <!-- EASTER EGG: DIALOG YÊU CẦU NHẬP MẬT KHẨU (Material Web Component) -->
+    <md-dialog id="mcaddonDialog">
+        <div slot="headline">🎉 Bạn đã tìm ra Easter Egg!</div>
+        <form id="mcaddonForm" slot="content" method="dialog" @submit="return false;">
+            <p>Nhập mật khẩu để tải file .mcaddon bí mật.</p>
+            <md-outlined-text-field
+                id="mcaddonPasswordField"
+                type="password"
+                label="Mật khẩu"
+                autocomplete="off">
+            </md-outlined-text-field>
+            <p id="mcaddonPasswordError">Sai mật khẩu rồi, thử lại nhé!</p>
+        </form>
+        <div slot="actions">
+            <md-text-button id="mcaddonCancelBtn">Huỷ</md-text-button>
+            <md-filled-button id="mcaddonConfirmBtn">Xác nhận</md-filled-button>
+        </div>
+    </md-dialog>
+
     <!-- KHỐI DIALOG CẢNH BÁO MD3 -->
     <div class="dialog-overlay" id="myWarningDialog">
         <div class="md3-dialog">
@@ -805,6 +938,140 @@
         });
 
         document.getElementById('btnOkWarning').addEventListener('click', closeWarning);
+
+        // =====================================================================
+        // EASTER EGG: SPAM XEN KẼ A -> D -> A -> D... -> PROGRESS BAR -> DIALOG
+        // =====================================================================
+        (function () {
+            const MAX_GAP_MS = 400;            // khoảng cách tối đa giữa 2 lần nhấn để combo không bị reset
+            const THRESHOLD = 20;              // số lần nhấn xen kẽ cần để làm đầy thanh progress
+            const PRESS_FLASH_MS = 140;        // thời gian phím "bé và tối đi" khi vừa bấm
+            const IDLE_RESET_MS = 700;         // nếu ngừng bấm quá lâu -> reset combo
+
+            const DOWNLOAD_URL = "https://tuanphong3108.github.io/workspace_saver/Echoes%20of%20Multiplayer%20(Vi%E1%BB%87t%20H%C3%B3a%20version).mcaddon";
+            const CORRECT_PASSWORD = "echoes_of_multiplayer";
+
+            let comboCount = 0;
+            let lastKey = null;
+            let lastPressTime = 0;
+            let idleTimer = null;
+
+            const progressWrapper = document.getElementById('spamProgressWrapper');
+            const progressBar = document.getElementById('spamProgressBar');
+            const keyBadgeA = document.getElementById('spamKeyA');
+            const keyBadgeD = document.getElementById('spamKeyD');
+            const mcaddonDialog = document.getElementById('mcaddonDialog');
+            const passwordField = document.getElementById('mcaddonPasswordField');
+            const passwordError = document.getElementById('mcaddonPasswordError');
+            const confirmBtn = document.getElementById('mcaddonConfirmBtn');
+            const cancelBtn = document.getElementById('mcaddonCancelBtn');
+
+            function updateProgressUI() {
+                const ratio = Math.max(0, Math.min(comboCount / THRESHOLD, 1));
+                progressBar.value = ratio;
+                progressWrapper.classList.toggle('visible', comboCount > 0);
+            }
+
+            function flashKey(key) {
+                const badge = key === 'a' ? keyBadgeA : keyBadgeD;
+                badge.classList.add('pressed');
+                clearTimeout(badge._flashTimer);
+                badge._flashTimer = setTimeout(() => {
+                    badge.classList.remove('pressed');
+                }, PRESS_FLASH_MS);
+            }
+
+            function stopIdleTimer() {
+                if (idleTimer) {
+                    clearTimeout(idleTimer);
+                    idleTimer = null;
+                }
+            }
+
+            function resetCombo() {
+                comboCount = 0;
+                lastKey = null;
+                updateProgressUI();
+                stopIdleTimer();
+            }
+
+            function scheduleIdleReset() {
+                stopIdleTimer();
+                idleTimer = setTimeout(resetCombo, IDLE_RESET_MS);
+            }
+
+            function openPasswordDialog() {
+                resetCombo();
+                passwordField.value = '';
+                passwordError.style.display = 'none';
+                passwordError.classList.remove('shake');
+                mcaddonDialog.show();
+                setTimeout(() => passwordField.focus(), 150);
+            }
+
+            function attemptUnlock() {
+                const value = (passwordField.value || '').trim();
+                if (value === CORRECT_PASSWORD) {
+                    passwordError.style.display = 'none';
+                    mcaddonDialog.close();
+
+                    const a = document.createElement('a');
+                    a.href = DOWNLOAD_URL;
+                    a.download = '';
+                    a.rel = 'noopener';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                } else {
+                    passwordError.style.display = 'block';
+                    passwordError.classList.remove('shake');
+                    void passwordError.offsetWidth; // reflow để restart animation
+                    passwordError.classList.add('shake');
+                    passwordField.value = '';
+                    passwordField.focus();
+                }
+            }
+
+            document.addEventListener('keydown', (e) => {
+                // Không theo dõi khi người dùng đang gõ trong ô nhập liệu hoặc dialog đang mở
+                const tag = (e.target && e.target.tagName || '').toLowerCase();
+                if (tag === 'input' || tag === 'textarea' || mcaddonDialog.open) return;
+
+                const key = e.key.toLowerCase();
+                if (key !== 'a' && key !== 'd') return;
+
+                const now = Date.now();
+                const withinGap = (now - lastPressTime) <= MAX_GAP_MS;
+                const isAlternating = lastKey !== null && key !== lastKey && withinGap;
+
+                if (isAlternating) {
+                    comboCount++;
+                } else {
+                    // Bấm trùng phím liên tiếp, hoặc cách quãng quá lâu -> bắt đầu lại combo từ phím này
+                    comboCount = 1;
+                }
+
+                lastKey = key;
+                lastPressTime = now;
+
+                flashKey(key);
+                updateProgressUI();
+                scheduleIdleReset();
+
+                if (comboCount >= THRESHOLD) {
+                    openPasswordDialog();
+                }
+            });
+
+            confirmBtn.addEventListener('click', attemptUnlock);
+            cancelBtn.addEventListener('click', () => mcaddonDialog.close());
+            passwordField.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    attemptUnlock();
+                }
+            });
+        })();
     </script>
 </body>
 </html>
