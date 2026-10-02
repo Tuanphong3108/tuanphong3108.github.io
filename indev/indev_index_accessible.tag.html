@@ -708,6 +708,24 @@
             transform: translate(-50%, -50%) !important;
             width: 80% !important;
         }
+
+        /* --- FIX NỀN & ACCENT COLOR CHO DROPDOWN CHỌN LOA (MD-MENU) --- */
+md-menu {
+    --md-menu-container-color: var(--md-sys-color-surface-variant);
+    --md-menu-container-elevation: 3;
+    --md-menu-container-shape: 16px;
+    border: 1px solid var(--playlist-border);
+    border-radius: 16px;
+}
+
+md-menu-item {
+    --md-menu-item-label-text-color: var(--md-sys-color-on-surface-variant);
+    --md-menu-item-hover-state-layer-color: var(--md-sys-color-primary);
+    --md-menu-item-hover-label-text-color: var(--md-sys-color-on-surface);
+    --md-menu-item-selected-container-color: var(--md-sys-color-secondary-container);
+    --md-menu-item-selected-label-text-color: var(--md-sys-color-primary);
+    --md-menu-item-focus-label-text-color: var(--md-sys-color-primary);
+}
     </style>
 </head>
 <body>
